@@ -41,12 +41,12 @@ async def disconnect(writer):
     writer.close()
     await writer.wait_closed()
 
-async def auxOn(ip):
+async def aux_on(ip):
     reader, writer = await register(ip)
     await write(writer, REM_ID + CMD_SET + b'\x5f\x00\x00\x00\x00' + b'\x00\x00')
     await disconnect(writer)
 
-async def auxOff(ip):
+async def aux_off(ip):
     reader, writer = await register(ip)
     await write(writer, REM_ID + CMD_SET + b'\x60\x00\x00\x00\x00' + b'\x00\x00')
     await disconnect(writer)
@@ -76,7 +76,7 @@ async def status(ip):
     finally:
         await disconnect(writer)
 
-async def currentSource(ip):
+async def current_source(ip):
     parsed = await status(ip)
     n = parsed['Window CONTENTS']['Current Source']
 

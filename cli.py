@@ -6,18 +6,18 @@ import logging
 
 from lithe import *
 
-async def auxOnValidate(host):
+async def aux_on_validate(host):
     while True:
-        await auxOn(host)
-        if await currentSource(host) == SOURCE_AUX:
+        await aux_on(host)
+        if await current_source(host) == SOURCE_AUX:
             break
         await asyncio.sleep(1)
 
 
-async def auxOffValidate(host):
+async def aux_off_validate(host):
     while True:
-        await auxOff(host)
-        if await currentSource(host) != SOURCE_AUX:
+        await aux_off(host)
+        if await current_source(host) != SOURCE_AUX:
             break
         await asyncio.sleep(1)
 
@@ -27,22 +27,22 @@ async def main(args):
 
     if args.command == 'auxOn':
         if args.toggle:
-            await auxOff(host)
+            await aux_off(host)
             await asyncio.sleep(0.2)
-        await auxOnValidate(host)
+        await aux_on_validate(host)
 
     elif args.command == 'auxOff':
         if args.toggle:
-            await auxOn(host)
+            await aux_on(host)
             await asyncio.sleep(0.2)
-        await auxOffValidate(host)
+        await aux_off_validate(host)
 
     elif args.command == 'status':
         parsed = await status(host)
         print(json.dumps(parsed, indent=4, sort_keys=True))
 
     elif args.command == 'currentSource':
-        print(await currentSource(host))
+        print(await current_source(host))
     
 
 parser = argparse.ArgumentParser(description='Call Lithe API')
